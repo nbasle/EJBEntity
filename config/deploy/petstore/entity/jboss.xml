@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE jboss PUBLIC 
+    "-//JBoss//DTD JBOSS 3.2//EN"
+    "http://www.jboss.org/j2ee/dtd/jboss_3_2.dtd">
+
+<jboss>
+   <enterprise-beans>
+      <entity>
+         <ejb-name>CategoryBean</ejb-name>
+         <local-jndi-name>ejb/domain/Category</local-jndi-name>
+      </entity>
+      <entity>
+         <ejb-name>ProductBean</ejb-name>
+         <local-jndi-name>ejb/domain/Product</local-jndi-name>
+      </entity>
+      <entity>
+         <ejb-name>CustomerBean</ejb-name>
+         <local-jndi-name>ejb/domain/Customer</local-jndi-name>
+      </entity>
+      <entity>
+         <ejb-name>OrderBean</ejb-name>
+         <local-jndi-name>ejb/domain/Order</local-jndi-name>
+      </entity>
+      <entity>
+         <ejb-name>ItemBean</ejb-name>
+         <local-jndi-name>ejb/domain/Item</local-jndi-name>
+      </entity>
+      <entity>
+         <ejb-name>OrderLineBean</ejb-name>
+         <local-jndi-name>ejb/domain/OrderLine</local-jndi-name>
+      </entity>
+      <entity>
+         <ejb-name>AddressBean</ejb-name>
+         <local-jndi-name>ejb/domain/Address</local-jndi-name>
+      </entity>
+      <entity>
+         <ejb-name>CreditCardBean</ejb-name>
+         <local-jndi-name>ejb/domain/CreditCard</local-jndi-name>
+      </entity>
+   </enterprise-beans>
+</jboss>

@@ -1,0 +1,367 @@
+<?xml version="1.0"?>
+
+<project name="PetStore" default="core" basedir=".">
+
+    <!-- path to root -->
+    <property name="home.dir" value="..\"/>
+    <property name="config.dir" value="${home.dir}/config"/>
+    <property name="lib.dir" value="${home.dir}/lib"/>
+    <property name="build.dir" value="${home.dir}/build"/>
+    <property name="temp.dir" value="${home.dir}/temp"/>
+    <property name="deploy.dir" value="${config.dir}/deploy"/>
+    <property name="resource.dir" value="${config.dir}/resource"/>
+
+    <property name="classes.dir" value="${home.dir}/classes"/>
+    <property name="src.dir" value="${home.dir}/src"/>
+
+    <property name="test.dir" value="${home.dir}/test"/>
+    <property name="test.classes.dir" value="${test.dir}/classes"/>
+    <property name="test.src.dir" value="${test.dir}/src"/>
+
+    <!-- Jars -->
+    <property name="client.jar" value="${build.dir}/client.jar"/>
+    <property name="server.jar" value="${build.dir}/server.jar"/>
+    <property name="common.jar" value="${build.dir}/common.jar"/>
+    <property name="service.ejb.client.jar" value="${build.dir}/services-ejb-client.jar"/>
+    <property name="jboss.client.jar" value="${lib.dir}/jbossall-client.jar"/>
+
+    <!-- EJB Jars -->
+    <property name="service.ejb.jar" value="${build.dir}/services-ejb.jar"/>
+    <property name="cart.ejb.jar" value="${build.dir}/cart-ejb.jar"/>
+    <property name="domain.ejb.jar" value="${build.dir}/domain-ejb.jar"/>
+    <property name="util.ejb.jar" value="${build.dir}/utility-ejb.jar"/>
+
+    <!-- Wars -->
+    <property name="web.war" value="${build.dir}/petstore.war"/>
+    <property name="admin.war" value="${build.dir}/adminps.war"/>
+    <property name="barkbank.war" value="${build.dir}/barkbank.war"/>
+
+    <!-- Ear -->
+    <property name="petstore.ear" value="${build.dir}/petstore.ear"/>
+
+    <!-- Signed -->
+    <property name="sign.alias" value="adminAlias"/>
+    <property name="sign.pass" value="adminPassword"/>
+    <property name="sign.keystore" value="${build.dir}/keystore"/>
+    <property name="signed.client.jar" value="signed-client.jar"/>
+    <property name="signed.common.jar" value="signed-common.jar"/>
+    <property name="signed.ejb.client.jar" value="signed-services-ejb-client.jar"/>
+    <property name="signed.jboss.client.jar" value="signed-jbossall-client.jar"/>
+
+    <!-- External application -->
+    <property name="jboss.home" value="C:\jboss-3.2.7"/>
+    <property name="jboss.deploy.dir" value="${jboss.home}/server/petstore/deploy"/>
+
+    <!-- Classes and Jars used to compile and test the application -->
+    <path id="classpath">
+        <pathelement location="${classes.dir}"/>
+        <pathelement location="${test.classes.dir}"/>
+        <pathelement location="${lib.dir}\junit.jar"/>
+        <pathelement location="${lib.dir}\httpunit.jar"/>
+        <pathelement location="${lib.dir}\nekohtml.jar"/>
+        <pathelement location="${lib.dir}\xercesImpl.jar"/>
+        <pathelement location="${lib.dir}\xmlParseAPIs.jar"/>
+        <pathelement location="${lib.dir}\mysql-connector.jar"/>
+        <pathelement location="${lib.dir}\servlet-api.jar"/>
+        <pathelement location="${lib.dir}\dom4j.jar"/>
+        <pathelement location="${lib.dir}\jsp-api.jar"/>
+        <pathelement location="${lib.dir}\jbossall-client.jar"/>
+    </path>
+
+    <!-- Removes the build directories -->
+    <target name="clean">
+        <echo message="Cleans the environment"/>
+        <delete dir="${classes.dir}"/>
+        <delete dir="${test.classes.dir}"/>
+        <delete dir="${build.dir}"/>
+    </target>
+
+    <!-- Creates or updates the Petstore database structure -->
+    <target name="databaseStructure">
+        <sql src="${config.dir}/structure.sql"
+            driver="com.mysql.jdbc.Driver"
+            url="jdbc:mysql://localhost:3306/petstore"
+            userid="root"
+            password="">
+            <classpath refid="classpath"/>
+        </sql>
+    </target>
+
+    <!-- Inserts data to the Petstore database -->
+    <target name="databaseData">
+        <sql src="${config.dir}/data.sql"
+            driver="com.mysql.jdbc.Driver"
+            url="jdbc:mysql://localhost:3306/petstore"
+            userid="root"
+            password="">
+            <classpath refid="classpath"/>
+        </sql>
+    </target>
+
+    <!-- Compiles source code -->
+    <target name="compile">
+        <echo message="Compile the classes"/>
+        <mkdir dir="${classes.dir}"/>
+        <javac srcdir="${src.dir}"
+            destdir="${classes.dir}">
+            <classpath refid="classpath"/>
+        </javac>
+    </target>
+
+    <!-- Creates the client and the server jar files -->
+    <target name="jar" depends="compile">
+        <mkdir dir="${build.dir}"/>
+        <echo message="Creates the PetStore Common jar"/>
+        <jar jarfile="${common.jar}">
+            <fileset dir="${classes.dir}">
+                <include name="com/yaps/petstore/common/**/*.class"/>
+            </fileset>
+        </jar>
+        <echo message="Creates the PetStore Client Application"/>
+        <jar jarfile="${client.jar}">
+            <fileset dir="${classes.dir}">
+                <include name="com/yaps/petstore/client/**/*.class"/>
+            </fileset>
+            <fileset dir="${config.dir}">
+                <include name="jndi.properties"/>
+            </fileset>
+        </jar>
+        <echo message="Creates the PetStore Server Application"/>
+        <jar jarfile="${server.jar}">
+            <fileset dir="${classes.dir}">
+                <include name="com/yaps/petstore/server/**/*.class"/>
+                <exclude name="com/yaps/petstore/server/cart/**/*.class"/>
+                <exclude name="com/yaps/petstore/server/domain/address/**/*.class"/>
+                <exclude name="com/yaps/petstore/server/domain/category/**/*.class"/>
+                <exclude name="com/yaps/petstore/server/domain/creditcard/**/*.class"/>
+                <exclude name="com/yaps/petstore/server/domain/customer/**/*.class"/>
+                <exclude name="com/yaps/petstore/server/domain/item/**/*.class"/>
+                <exclude name="com/yaps/petstore/server/domain/order/**/*.class"/>
+                <exclude name="com/yaps/petstore/server/domain/orderline/**/*.class"/>
+                <exclude name="com/yaps/petstore/server/domain/product/**/*.class"/>
+                <exclude name="com/yaps/petstore/server/service/catalog/**/*.class"/>
+                <exclude name="com/yaps/petstore/server/service/creditcard/**/*.class"/>
+                <exclude name="com/yaps/petstore/server/service/customer/**/*.class"/>
+                <exclude name="com/yaps/petstore/server/service/order/**/*.class"/>
+                <exclude name="com/yaps/petstore/server/util/uidgen/**/*.class"/>
+            </fileset>
+        </jar>
+    </target>
+
+    <!-- Creates the Service EJB jar files -->
+    <target name="jarService" depends="compile">
+        <mkdir dir="${build.dir}"/>
+        <echo message="Creates the Service EJB Jar"/>
+        <mkdir dir="${temp.dir}/META-INF"/>
+        <copy todir="${temp.dir}">
+            <fileset dir="${classes.dir}">
+                <include name="com/yaps/petstore/server/service/**/*.class"/>
+                <exclude name="com/yaps/petstore/server/service/AbstractRemoteService.class"/>
+            </fileset>
+        </copy>
+        <copy todir="${temp.dir}/META-INF">
+            <fileset dir="${deploy.dir}/petstore/stateless">
+                <include name="ejb-jar.xml"/>
+                <include name="jboss.xml"/>
+            </fileset>
+        </copy>
+        <jar jarfile="${service.ejb.jar}" basedir="${temp.dir}"/>
+        <delete dir="${temp.dir}"/>
+
+        <echo message="Creates the Service EJB Client Jar"/>
+        <jar jarfile="${service.ejb.client.jar}">
+            <fileset dir="${classes.dir}">
+                <include name="com/yaps/petstore/server/service/catalog/*.class"/>
+                <exclude name="com/yaps/petstore/server/service/catalog/*Bean.class"/>
+                <include name="com/yaps/petstore/server/service/customer/*.class"/>
+                <exclude name="com/yaps/petstore/server/service/customer/*Bean.class"/>
+                <include name="com/yaps/petstore/server/service/order/*.class"/>
+                <exclude name="com/yaps/petstore/server/service/order/*Bean.class"/>
+                <exclude name="com/yaps/petstore/server/service/**/*DAO.class"/>
+            </fileset>
+        </jar>
+    </target>
+
+    <!-- Creates the Cart EJB jar files -->
+    <target name="jarCart" depends="compile">
+        <mkdir dir="${build.dir}"/>
+        <echo message="Creates the Cart EJB Jar"/>
+        <mkdir dir="${temp.dir}/META-INF"/>
+        <copy todir="${temp.dir}">
+            <fileset dir="${classes.dir}">
+                <include name="com/yaps/petstore/server/cart/**/*.class"/>
+            </fileset>
+        </copy>
+        <copy todir="${temp.dir}/META-INF">
+            <fileset dir="${deploy.dir}/petstore/stateful">
+                <include name="ejb-jar.xml"/>
+                <include name="jboss.xml"/>
+            </fileset>
+        </copy>
+        <jar jarfile="${cart.ejb.jar}" basedir="${temp.dir}"/>
+        <delete dir="${temp.dir}"/>
+    </target>
+
+    <!-- Creates the Domain EJB jar files -->
+    <target name="jarDomain">
+        <mkdir dir="${build.dir}"/>
+        <echo message="Creates the Domain EJB Jar"/>
+        <mkdir dir="${temp.dir}/META-INF"/>
+        <copy todir="${temp.dir}">
+            <fileset dir="${classes.dir}">
+                <include name="com/yaps/petstore/server/domain/**/*.class"/>
+                <exclude name="com/yaps/petstore/server/domain/DomainObject.class"/>
+                <exclude name="com/yaps/petstore/server/domain/PersistentObject.class"/>
+            </fileset>
+        </copy>
+        <copy todir="${temp.dir}/META-INF">
+            <fileset dir="${deploy.dir}/petstore/entity">
+                <include name="*.xml"/>
+            </fileset>
+        </copy>
+        <jar jarfile="${domain.ejb.jar}" basedir="${temp.dir}"/>
+        <delete dir="${temp.dir}"/>
+    </target>
+
+    <!-- Creates the Utility EJB jar files -->
+    <target name="jarUtil">
+        <mkdir dir="${build.dir}"/>
+        <echo message="Creates the Utility EJB Jar"/>
+        <mkdir dir="${temp.dir}/META-INF"/>
+        <copy todir="${temp.dir}">
+            <fileset dir="${classes.dir}">
+                <include name="com/yaps/petstore/server/util/uidgen/**/*.class"/>
+            </fileset>
+        </copy>
+        <copy todir="${temp.dir}/META-INF">
+            <fileset dir="${deploy.dir}/petstore/utility">
+                <include name="*.xml"/>
+            </fileset>
+        </copy>
+        <jar jarfile="${util.ejb.jar}" basedir="${temp.dir}"/>
+        <delete dir="${temp.dir}"/>
+    </target>
+
+    <!-- Creates the webapp war file -->
+    <target name="war" depends="jar">
+        <mkdir dir="${build.dir}"/>
+        <echo message="Creates the PetStore Web Application"/>
+        <war destfile="${web.war}" webxml="${deploy.dir}/petstore/web/web.xml">
+            <fileset dir="${src.dir}/com/yaps/petstore/web/docroot">
+                <include name="**/*.jsp"/>
+                <include name="**/*.gif"/>
+                <include name="**/*.jpg"/>
+            </fileset>
+            <webinf dir="${deploy.dir}/petstore/web">
+                <include name="petstore.tld"/>
+            </webinf>
+            <lib dir="${lib.dir}">
+                <include name="*.jar"/>
+            </lib>
+            <classes dir="${classes.dir}">
+                <include name="com/yaps/petstore/web/**/*.class"/>
+            </classes>
+        </war>
+    </target>
+
+    <!-- Creates the EAR file -->
+    <target name="ear" depends="war,jar,jarService,jarCart,jarDomain,jarUtil">
+        <mkdir dir="${build.dir}"/>
+        <ear destfile="${petstore.ear}" appxml="${deploy.dir}/petstore/application.xml">
+            <fileset file="${web.war}"/>
+            <fileset file="${common.jar}"/>
+            <fileset file="${server.jar}"/>
+            <fileset file="${service.ejb.jar}"/>
+            <fileset file="${cart.ejb.jar}"/>
+            <fileset file="${domain.ejb.jar}"/>
+            <fileset file="${util.ejb.jar}"/>
+        </ear>
+    </target>
+
+    <!-- Creates the Bank webapp war file -->
+    <target name="bank" depends="jar">
+        <mkdir dir="${build.dir}"/>
+        <echo message="Creates the Bank Web Application"/>
+        <war destfile="${barkbank.war}" webxml="${deploy.dir}/barkbank/web.xml">
+            <fileset dir="${src.dir}/com/barkbank/verifier/">
+                <include name="**/*.html"/>
+                <include name="**/*.gif"/>
+            </fileset>
+            <classes dir="${classes.dir}">
+                <include name="com/barkbank/**/*.class"/>
+            </classes>
+            <lib dir="${lib.dir}">
+                <include name="dom4j.jar"/>
+                <include name="jaxen.jar"/>
+            </lib>
+        </war>
+    </target>
+
+    <!-- Creates the Admin webapp war file -->
+    <target name="admin" depends="jar">
+        <echo message="Sign the client Jar"/>
+        <delete file="${sign.keystore}"/>
+        <!-- Generates a key -->
+        <genkey alias="${sign.alias}"
+            storepass="${sign.pass}"
+            keystore="${sign.keystore}"
+            dname="CN=YAPS, OU=YAPS PetStore, O=YAPS PetStore, C=US"/>
+        <!-- Sign the jars with the generated key -->
+        <signjar jar="${client.jar}"
+            signedjar="${build.dir}/${signed.client.jar}"
+            storepass="${sign.pass}"
+            alias="${sign.alias}"
+            keystore="${sign.keystore}"/>
+        <signjar jar="${common.jar}"
+            signedjar="${build.dir}/${signed.common.jar}"
+            storepass="${sign.pass}"
+            alias="${sign.alias}"
+            keystore="${sign.keystore}"/>
+        <signjar jar="${service.ejb.client.jar}" signedjar="${build.dir}/${signed.ejb.client.jar}"
+            storepass="${sign.pass}" alias="${sign.alias}" keystore="${sign.keystore}"/>
+        <signjar jar="${jboss.client.jar}" signedjar="${build.dir}/${signed.jboss.client.jar}"
+            storepass="${sign.pass}" alias="${sign.alias}" keystore="${sign.keystore}"/>
+
+        <echo message="Creates the Admin Web Application"/>
+        <war destfile="${admin.war}" webxml="${deploy.dir}/admin/web.xml">
+            <fileset dir="${src.dir}/com/yaps/admin/">
+                <include name="**/*.html"/>
+                <include name="**/*.gif"/>
+                <include name="**/*.jnlp"/>
+            </fileset>
+            <fileset dir="${build.dir}">
+                <include name="${signed.client.jar}"/>
+                <include name="${signed.common.jar}"/>
+                <include name="${signed.ejb.client.jar}"/>
+                <include name="${signed.jboss.client.jar}"/>
+            </fileset>
+        </war>
+    </target>
+
+    <!-- Deploys the webapp war file -->
+    <target name="deploy" depends="ear,bank,admin">
+        <copy file="${petstore.ear}" todir="${jboss.deploy.dir}"/>
+        <copy file="${barkbank.war}" todir="${jboss.deploy.dir}"/>
+        <copy file="${admin.war}" todir="${jboss.deploy.dir}"/>
+    </target>
+
+    <!-- Test -->
+    <target name="test" depends="compile">
+        <echo message="Compile the test classes"/>
+        <mkdir dir="${test.classes.dir}"/>
+        <javac srcdir="${test.src.dir}"
+            destdir="${classes.dir}">
+            <classpath refid="classpath"/>
+        </javac>
+        <echo message="Test the application"/>
+        <junit printsummary="on">
+            <formatter type="plain" usefile="false"/>
+            <test name="AllTests"/>
+            <classpath refid="classpath"/>
+        </junit>
+    </target>
+
+    <!-- Main targets -->
+    <target name="core" depends="clean,ear,bank,admin"/>
+
+</project>

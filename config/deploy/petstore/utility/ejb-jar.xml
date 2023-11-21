@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE ejb-jar PUBLIC
+    '-//Sun Microsystems, Inc.//DTD Enterprise JavaBeans 2.0//EN'
+    'http://java.sun.com/dtd/ejb-jar_2_0.dtd'>
+
+<ejb-jar>
+    <display-name>Utility</display-name>
+    <enterprise-beans>
+        <session>
+            <display-name>UniqueIdGeneratorSB</display-name>
+            <ejb-name>UniqueIdGeneratorBean</ejb-name>
+            <local-home>com.yaps.petstore.server.util.uidgen.generator.UniqueIdGeneratorLocalHome</local-home>
+            <local>com.yaps.petstore.server.util.uidgen.generator.UniqueIdGeneratorLocal</local>
+            <ejb-class>com.yaps.petstore.server.util.uidgen.generator.UniqueIdGeneratorBean</ejb-class>
+            <session-type>Stateless</session-type>
+            <transaction-type>Container</transaction-type>
+        </session>
+
+        <entity>
+            <display-name>CounterEB</display-name>
+            <ejb-name>CounterBean</ejb-name>
+            <local-home>com.yaps.petstore.server.util.uidgen.counter.CounterLocalHome</local-home>
+            <local>com.yaps.petstore.server.util.uidgen.counter.CounterLocal</local>
+            <ejb-class>com.yaps.petstore.server.util.uidgen.counter.CounterBean</ejb-class>
+            <persistence-type>Container</persistence-type>
+            <prim-key-class>java.lang.String</prim-key-class>
+            <reentrant>False</reentrant>
+            <cmp-version>2.x</cmp-version>
+            <abstract-schema-name>Counter</abstract-schema-name>
+            <cmp-field>
+                <field-name>name</field-name>
+            </cmp-field>
+            <cmp-field>
+                <field-name>value</field-name>
+            </cmp-field>
+            <primkey-field>name</primkey-field>
+        </entity>
+    </enterprise-beans>
+
+    <assembly-descriptor>
+        <container-transaction>
+            <description>Transaction attributes for 'CounterBean' methods</description>
+            <method>
+                <ejb-name>CounterBean</ejb-name>
+                <method-name>*</method-name>
+            </method>
+            <trans-attribute>Required</trans-attribute>
+        </container-transaction>
+        <container-transaction>
+            <description>Transaction attributes for 'UniqueIdGeneratorBean' methods</description>
+            <method>
+                <ejb-name>UniqueIdGeneratorBean</ejb-name>
+                <method-name>*</method-name>
+            </method>
+            <trans-attribute>Required</trans-attribute>
+        </container-transaction>
+    </assembly-descriptor>
+</ejb-jar>

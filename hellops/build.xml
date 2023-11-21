@@ -1,0 +1,68 @@
+<?xml version="1.0"?>
+
+<project name="Hello PetStore" default="core" basedir=".">
+
+    <!-- path to root -->
+    <property name="home.dir" value="."/>
+    <property name="classes.dir" value="${home.dir}/classes"/>
+    <property name="src.dir" value="${home.dir}"/>
+    <property name="build.dir" value="${home.dir}/build"/>
+    <property name="lib.dir" value="${home.dir}/../lib"/>
+
+    <!-- Files -->
+    <property name="ejb.jar" value="${build.dir}/helloejb.jar"/>
+
+    <!-- External application -->
+    <property name="jboss.home" value="D:\Java\jboss-3.2.5"/>
+    <property name="jboss.deploy.dir" value="${jboss.home}/server/petstore/deploy"/>
+
+    <path id="classpath">
+        <pathelement location="${classes.dir}"/>
+        <pathelement location="${lib.dir}/jbossall-client.jar"/>
+    </path>
+
+    <!-- Removes the build directory -->
+    <target name="clean">
+        <echo message="Cleans the environment"/>
+        <delete dir="${classes.dir}"/>
+        <delete dir="${build.dir}"/>
+    </target>
+
+    <!-- Compiles source code -->
+    <target name="compile">
+        <echo message="Compiles java classes"/>
+        <mkdir dir="${classes.dir}"/>
+        <javac srcdir="${src.dir}"
+            destdir="${classes.dir}">
+            <classpath refid="classpath"/>
+        </javac>
+    </target>
+
+    <!-- Creates the EJB jar file -->
+    <target name="jar" depends="compile" >
+        <echo message="Creates the Hello PetStore EJB Jar"/>
+        <mkdir dir="${build.dir}/META-INF"/>
+        <copy todir="${build.dir}">
+            <fileset dir="${classes.dir}">
+                <exclude name="Main.class"/>
+            </fileset>
+        </copy>
+        <copy todir="${build.dir}/META-INF">
+            <fileset dir="${src.dir}">
+                <include name="ejb-jar.xml"/>
+                <include name="jboss.xml"/>
+                <include name="jbosscmp-jdbc.xml"/>
+            </fileset>
+        </copy>
+        <jar jarfile="${ejb.jar}" basedir="${build.dir}"/>
+    </target>
+
+    <!-- Creates the webapp war file -->
+    <target name="deploy">
+        <copy file="${ejb.jar}" todir="${jboss.deploy.dir}"/>
+    </target>
+
+    <!-- Main targets -->
+    <target name="core" depends="clean,jar"/>
+
+</project>

@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE ejb-jar PUBLIC
+      "-//Sun Microsystems, Inc.//DTD Enterprise JavaBeans 2.0//EN"
+      "http://java.sun.com/dtd/ejb-jar_2_0.dtd">
+
+<ejb-jar>
+    <enterprise-beans>
+        <session>
+            <display-name>CustomerServiceSB</display-name>
+            <ejb-name>CustomerServiceBean</ejb-name>
+            <home>com.yaps.petstore.server.service.customer.CustomerServiceHome</home>
+            <remote>com.yaps.petstore.server.service.customer.CustomerService</remote>
+            <ejb-class>com.yaps.petstore.server.service.customer.CustomerServiceBean</ejb-class>
+            <session-type>Stateless</session-type>
+            <transaction-type>Container</transaction-type>
+        </session>
+        <session>
+            <display-name>CatalogServiceSB</display-name>
+            <ejb-name>CatalogServiceBean</ejb-name>
+            <home>com.yaps.petstore.server.service.catalog.CatalogServiceHome</home>
+            <remote>com.yaps.petstore.server.service.catalog.CatalogService</remote>
+            <ejb-class>com.yaps.petstore.server.service.catalog.CatalogServiceBean</ejb-class>
+            <session-type>Stateless</session-type>
+            <transaction-type>Container</transaction-type>
+        </session>
+        <session>
+            <display-name>OrderServiceSB</display-name>
+            <ejb-name>OrderServiceBean</ejb-name>
+            <home>com.yaps.petstore.server.service.order.OrderServiceHome</home>
+            <remote>com.yaps.petstore.server.service.order.OrderService</remote>
+            <ejb-class>com.yaps.petstore.server.service.order.OrderServiceBean</ejb-class>
+            <session-type>Stateless</session-type>
+            <transaction-type>Container</transaction-type>
+        </session>
+        <session>
+            <display-name>CreditCardServiceSB</display-name>
+            <ejb-name>CreditCardServiceBean</ejb-name>
+            <local-home>com.yaps.petstore.server.service.creditcard.CreditCardServiceLocalHome</local-home>
+            <local>com.yaps.petstore.server.service.creditcard.CreditCardServiceLocal</local>
+            <ejb-class>com.yaps.petstore.server.service.creditcard.CreditCardServiceBean</ejb-class>
+            <session-type>Stateless</session-type>
+            <transaction-type>Container</transaction-type>
+        </session>
+    </enterprise-beans>
+</ejb-jar>

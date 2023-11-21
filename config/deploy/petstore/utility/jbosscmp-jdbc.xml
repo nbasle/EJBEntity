@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE jbosscmp-jdbc PUBLIC
+    "-//JBoss//DTD JBOSSCMP-JDBC 3.2//EN"
+    "http://www.jboss.org/j2ee/dtd/jbosscmp-jdbc_3_2.dtd">
+
+<jbosscmp-jdbc>
+    <defaults>
+        <datasource>java:/petstoreDS</datasource>
+        <datasource-mapping>mySQL</datasource-mapping>
+    </defaults>
+
+    <enterprise-beans>
+        <entity>
+            <ejb-name>CounterBean</ejb-name>
+            <table-name>T_COUNTER</table-name>
+
+            <cmp-field>
+                <field-name>name</field-name>
+                <column-name>name</column-name>
+                <jdbc-type>VARCHAR</jdbc-type>
+                <sql-type>varchar(10)</sql-type>
+            </cmp-field>
+
+            <cmp-field>
+                <field-name>value</field-name>
+                <column-name>value</column-name>
+            </cmp-field>
+        </entity>
+    </enterprise-beans>
+
+</jbosscmp-jdbc>

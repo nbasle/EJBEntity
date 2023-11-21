@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE jboss PUBLIC
+    "-//JBoss//DTD JBOSS 3.2//EN"
+    "http://www.jboss.org/j2ee/dtd/jboss_3_2.dtd">
+
+<jboss>
+    <enterprise-beans>
+        <session>
+            <ejb-name>UniqueIdGeneratorBean</ejb-name>
+            <local-jndi-name>ejb/utility/UniqueIdGenerator</local-jndi-name>
+        </session>
+        <entity>
+            <ejb-name>CounterBean</ejb-name>
+            <local-jndi-name>ejb/utility/Counter</local-jndi-name>
+        </entity>
+    </enterprise-beans>
+</jboss>

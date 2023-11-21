@@ -1,0 +1,517 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE jbosscmp-jdbc PUBLIC
+    "-//JBoss//DTD JBOSSCMP-JDBC 3.2//EN"
+    "http://www.jboss.org/j2ee/dtd/jbosscmp-jdbc_3_2.dtd">
+
+<jbosscmp-jdbc>
+    <defaults>
+        <datasource>java:/petstoreDS</datasource>
+        <datasource-mapping>mySQL</datasource-mapping>
+    </defaults>
+
+    <enterprise-beans>
+        <entity>
+            <ejb-name>CategoryBean</ejb-name>
+            <table-name>T_CATEGORY</table-name>
+
+            <cmp-field>
+                <field-name>id</field-name>
+                <column-name>id</column-name>
+                <jdbc-type>VARCHAR</jdbc-type>
+                <sql-type>varchar(10)</sql-type>
+            </cmp-field>
+
+            <cmp-field>
+                <field-name>name</field-name>
+                <column-name>name</column-name>
+                <not-null/>
+                <jdbc-type>VARCHAR</jdbc-type>
+                <sql-type>varchar(50)</sql-type>
+            </cmp-field>
+
+            <cmp-field>
+                <field-name>description</field-name>
+                <column-name>description</column-name>
+                <not-null/>
+                <jdbc-type>VARCHAR</jdbc-type>
+                <sql-type>varchar(255)</sql-type>
+            </cmp-field>
+
+            <query>
+                <query-method>
+                    <method-name>findAll</method-name>
+                    <method-params></method-params>
+                </query-method>
+                <read-ahead>
+                    <strategy>on-load</strategy>
+                </read-ahead>
+            </query>
+        </entity>
+
+        <entity>
+            <ejb-name>ProductBean</ejb-name>
+            <table-name>T_PRODUCT</table-name>
+
+            <cmp-field>
+                <field-name>id</field-name>
+                <column-name>id</column-name>
+                <jdbc-type>VARCHAR</jdbc-type>
+                <sql-type>varchar(10)</sql-type>
+            </cmp-field>
+
+            <cmp-field>
+                <field-name>name</field-name>
+                <column-name>name</column-name>
+                <not-null/>
+                <jdbc-type>VARCHAR</jdbc-type>
+                <sql-type>varchar(50)</sql-type>
+            </cmp-field>
+
+            <cmp-field>
+                <field-name>description</field-name>
+                <column-name>description</column-name>
+                <not-null/>
+                <jdbc-type>VARCHAR</jdbc-type>
+                <sql-type>varchar(255)</sql-type>
+            </cmp-field>
+
+            <query>
+                <query-method>
+                    <method-name>findAll</method-name>
+                    <method-params></method-params>
+                </query-method>
+                <read-ahead>
+                    <strategy>on-load</strategy>
+                </read-ahead>
+            </query>
+        </entity>
+
+        <entity>
+            <ejb-name>ItemBean</ejb-name>
+            <table-name>T_ITEM</table-name>
+
+            <cmp-field>
+                <field-name>id</field-name>
+                <column-name>id</column-name>
+                <jdbc-type>VARCHAR</jdbc-type>
+                <sql-type>varchar(10)</sql-type>
+            </cmp-field>
+
+            <cmp-field>
+                <field-name>name</field-name>
+                <column-name>name</column-name>
+                <not-null/>
+                <jdbc-type>VARCHAR</jdbc-type>
+                <sql-type>varchar(50)</sql-type>
+            </cmp-field>
+
+            <cmp-field>
+                <field-name>unitCost</field-name>
+                <column-name>unitCost</column-name>
+            </cmp-field>
+
+            <cmp-field>
+                <field-name>imagePath</field-name>
+                <column-name>imagePath</column-name>
+                <jdbc-type>VARCHAR</jdbc-type>
+                <sql-type>varchar(255)</sql-type>
+            </cmp-field>
+
+            <query>
+                <query-method>
+                    <method-name>findAll</method-name>
+                    <method-params></method-params>
+                </query-method>
+                <read-ahead>
+                    <strategy>on-load</strategy>
+                </read-ahead>
+            </query>
+        </entity>
+
+        <entity>
+            <ejb-name>CustomerBean</ejb-name>
+            <table-name>T_CUSTOMER</table-name>
+
+            <cmp-field>
+                <field-name>id</field-name>
+                <column-name>id</column-name>
+                <jdbc-type>VARCHAR</jdbc-type>
+                <sql-type>varchar(10)</sql-type>
+            </cmp-field>
+
+            <cmp-field>
+                <field-name>password</field-name>
+                <column-name>password</column-name>
+                <jdbc-type>VARCHAR</jdbc-type>
+                <sql-type>varchar(10)</sql-type>
+            </cmp-field>
+
+            <cmp-field>
+                <field-name>firstname</field-name>
+                <column-name>firstname</column-name>
+                <not-null/>
+                <jdbc-type>VARCHAR</jdbc-type>
+                <sql-type>varchar(50)</sql-type>
+            </cmp-field>
+
+            <cmp-field>
+                <field-name>lastname</field-name>
+                <column-name>lastname</column-name>
+                <not-null/>
+                <jdbc-type>VARCHAR</jdbc-type>
+                <sql-type>varchar(50)</sql-type>
+            </cmp-field>
+
+            <cmp-field>
+                <field-name>email</field-name>
+                <column-name>email</column-name>
+                <jdbc-type>VARCHAR</jdbc-type>
+                <sql-type>varchar(255)</sql-type>
+            </cmp-field>
+
+            <cmp-field>
+                <field-name>telephone</field-name>
+                <column-name>telephone</column-name>
+                <jdbc-type>VARCHAR</jdbc-type>
+                <sql-type>varchar(10)</sql-type>
+            </cmp-field>
+
+            <query>
+                <query-method>
+                    <method-name>findAll</method-name>
+                    <method-params></method-params>
+                </query-method>
+                <read-ahead>
+                    <strategy>on-load</strategy>
+                </read-ahead>
+            </query>
+        </entity>
+
+        <entity>
+            <ejb-name>OrderBean</ejb-name>
+            <table-name>T_ORDER</table-name>
+
+            <cmp-field>
+                <field-name>id</field-name>
+                <column-name>id</column-name>
+                <jdbc-type>VARCHAR</jdbc-type>
+                <sql-type>varchar(10)</sql-type>
+            </cmp-field>
+
+            <cmp-field>
+                <field-name>orderDate</field-name>
+                <column-name>orderDate</column-name>
+            </cmp-field>
+
+            <cmp-field>
+                <field-name>firstname</field-name>
+                <column-name>firstname</column-name>
+                <not-null/>
+                <jdbc-type>VARCHAR</jdbc-type>
+                <sql-type>varchar(50)</sql-type>
+            </cmp-field>
+
+            <cmp-field>
+                <field-name>lastname</field-name>
+                <column-name>lastname</column-name>
+                <not-null/>
+                <jdbc-type>VARCHAR</jdbc-type>
+                <sql-type>varchar(50)</sql-type>
+            </cmp-field>
+        </entity>
+
+        <entity>
+            <ejb-name>OrderLineBean</ejb-name>
+            <table-name>T_ORDER_LINE</table-name>
+
+            <cmp-field>
+                <field-name>id</field-name>
+                <column-name>id</column-name>
+                <jdbc-type>VARCHAR</jdbc-type>
+                <sql-type>varchar(10)</sql-type>
+            </cmp-field>
+
+            <cmp-field>
+                <field-name>quantity</field-name>
+                <column-name>quantity</column-name>
+            </cmp-field>
+
+            <cmp-field>
+                <field-name>unitCost</field-name>
+                <column-name>unitCost</column-name>
+            </cmp-field>
+        </entity>
+
+        <entity>
+            <ejb-name>AddressBean</ejb-name>
+            <table-name>T_ADDRESS</table-name>
+
+            <cmp-field>
+                <field-name>id</field-name>
+                <column-name>id</column-name>
+                <jdbc-type>VARCHAR</jdbc-type>
+                <sql-type>varchar(10)</sql-type>
+            </cmp-field>
+
+            <cmp-field>
+                <field-name>street1</field-name>
+                <column-name>street1</column-name>
+                <jdbc-type>VARCHAR</jdbc-type>
+                <sql-type>varchar(50)</sql-type>
+            </cmp-field>
+
+            <cmp-field>
+                <field-name>street2</field-name>
+                <column-name>street2</column-name>
+                <jdbc-type>VARCHAR</jdbc-type>
+                <sql-type>varchar(50)</sql-type>
+            </cmp-field>
+
+            <cmp-field>
+                <field-name>city</field-name>
+                <column-name>city</column-name>
+                <jdbc-type>VARCHAR</jdbc-type>
+                <sql-type>varchar(25)</sql-type>
+            </cmp-field>
+
+            <cmp-field>
+                <field-name>state</field-name>
+                <column-name>state</column-name>
+                <jdbc-type>VARCHAR</jdbc-type>
+                <sql-type>varchar(25)</sql-type>
+            </cmp-field>
+
+            <cmp-field>
+                <field-name>zipcode</field-name>
+                <column-name>zipcode</column-name>
+                <jdbc-type>VARCHAR</jdbc-type>
+                <sql-type>varchar(10)</sql-type>
+            </cmp-field>
+
+            <cmp-field>
+                <field-name>country</field-name>
+                <column-name>country</column-name>
+                <jdbc-type>VARCHAR</jdbc-type>
+                <sql-type>varchar(25)</sql-type>
+            </cmp-field>
+        </entity>
+
+        <entity>
+            <ejb-name>CreditCardBean</ejb-name>
+            <table-name>T_CREDIT_CARD</table-name>
+
+            <cmp-field>
+                <field-name>id</field-name>
+                <column-name>id</column-name>
+                <jdbc-type>VARCHAR</jdbc-type>
+                <sql-type>varchar(10)</sql-type>
+            </cmp-field>
+
+            <cmp-field>
+                <field-name>creditCardNumber</field-name>
+                <column-name>creditCardNumber</column-name>
+                <jdbc-type>VARCHAR</jdbc-type>
+                <sql-type>varchar(25)</sql-type>
+            </cmp-field>
+
+            <cmp-field>
+                <field-name>creditCardType</field-name>
+                <column-name>creditCardType</column-name>
+                <jdbc-type>VARCHAR</jdbc-type>
+                <sql-type>varchar(25)</sql-type>
+            </cmp-field>
+
+            <cmp-field>
+                <field-name>creditCardExpiryDate</field-name>
+                <column-name>creditCardExpiryDate</column-name>
+                <jdbc-type>VARCHAR</jdbc-type>
+                <sql-type>varchar(10)</sql-type>
+            </cmp-field>
+        </entity>
+
+    </enterprise-beans>
+
+    <relationships>
+        <ejb-relation>
+            <ejb-relation-name>CategoryBean - ProductBean</ejb-relation-name>
+            <foreign-key-mapping/>
+
+            <ejb-relationship-role>
+                <ejb-relationship-role-name>category has many products</ejb-relationship-role-name>
+                <key-fields>
+                    <key-field>
+                        <field-name>id</field-name>
+                        <column-name>category_fk</column-name>
+                    </key-field>
+                </key-fields>
+            </ejb-relationship-role>
+
+            <ejb-relationship-role>
+                <ejb-relationship-role-name>product is linked to one category</ejb-relationship-role-name>
+                <key-fields/>
+            </ejb-relationship-role>
+        </ejb-relation>
+
+        <ejb-relation>
+            <ejb-relation-name>ProductBean - ItemBean</ejb-relation-name>
+            <foreign-key-mapping/>
+
+            <ejb-relationship-role>
+                <ejb-relationship-role-name>product has many items</ejb-relationship-role-name>
+                <key-fields>
+                    <key-field>
+                        <field-name>id</field-name>
+                        <column-name>product_fk</column-name>
+                    </key-field>
+                </key-fields>
+            </ejb-relationship-role>
+
+            <ejb-relationship-role>
+                <ejb-relationship-role-name>item is linked to one product</ejb-relationship-role-name>
+                <key-fields/>
+            </ejb-relationship-role>
+        </ejb-relation>
+
+        <ejb-relation>
+            <ejb-relation-name>CustomerBean - OrderBean</ejb-relation-name>
+            <foreign-key-mapping/>
+
+            <ejb-relationship-role>
+                <ejb-relationship-role-name>customer can book many orders</ejb-relationship-role-name>
+                <key-fields>
+                    <key-field>
+                        <field-name>id</field-name>
+                        <column-name>customer_fk</column-name>
+                    </key-field>
+                </key-fields>
+            </ejb-relationship-role>
+
+            <ejb-relationship-role>
+                <ejb-relationship-role-name>an order is booked for one customer</ejb-relationship-role-name>
+                <key-fields/>
+            </ejb-relationship-role>
+        </ejb-relation>
+
+        <ejb-relation>
+            <ejb-relation-name>OrderBean - OrderLineBean</ejb-relation-name>
+            <foreign-key-mapping/>
+
+            <ejb-relationship-role>
+                <ejb-relationship-role-name>an order is made of many order lines</ejb-relationship-role-name>
+                <key-fields>
+                    <key-field>
+                        <field-name>id</field-name>
+                        <column-name>order_fk</column-name>
+                    </key-field>
+                </key-fields>
+            </ejb-relationship-role>
+
+            <ejb-relationship-role>
+                <ejb-relationship-role-name>an order line refers one order</ejb-relationship-role-name>
+                <key-fields/>
+            </ejb-relationship-role>
+        </ejb-relation>
+
+        <ejb-relation>
+            <ejb-relation-name>ItemBean - OrderLineBean</ejb-relation-name>
+            <foreign-key-mapping/>
+
+            <ejb-relationship-role>
+                <ejb-relationship-role-name>item is used by many order lines</ejb-relationship-role-name>
+                <key-fields>
+                    <key-field>
+                        <field-name>id</field-name>
+                        <column-name>item_fk</column-name>
+                    </key-field>
+                </key-fields>
+            </ejb-relationship-role>
+
+            <ejb-relationship-role>
+                <ejb-relationship-role-name>order line refers only one item</ejb-relationship-role-name>
+                <key-fields/>
+            </ejb-relationship-role>
+        </ejb-relation>
+
+        <ejb-relation>
+            <ejb-relation-name>CustomerBean - AddressBean</ejb-relation-name>
+            <foreign-key-mapping/>
+            <ejb-relationship-role>
+                <ejb-relationship-role-name>customer-has_an-address</ejb-relationship-role-name>
+                <key-fields/>
+            </ejb-relationship-role>
+            <ejb-relationship-role>
+                <ejb-relationship-role-name>address-is_refered_by-customer</ejb-relationship-role-name>
+                <key-fields>
+                    <key-field>
+                        <field-name>id</field-name>
+                        <column-name>address_fk</column-name>
+                    </key-field>
+                </key-fields>
+            </ejb-relationship-role>
+        </ejb-relation>
+
+        <ejb-relation>
+            <ejb-relation-name>CustomerBean - CreditCardBean</ejb-relation-name>
+            <foreign-key-mapping/>
+            <ejb-relationship-role>
+                <ejb-relationship-role-name>customer-has_a-creditCard</ejb-relationship-role-name>
+                <key-fields/>
+            </ejb-relationship-role>
+            <ejb-relationship-role>
+                <ejb-relationship-role-name>creditCard-belongs_to-customer</ejb-relationship-role-name>
+                <key-fields>
+                    <key-field>
+                        <field-name>id</field-name>
+                        <column-name>creditCard_fk</column-name>
+                    </key-field>
+                </key-fields>
+            </ejb-relationship-role>
+        </ejb-relation>
+
+        <ejb-relation>
+            <ejb-relation-name>AddressBean - OrderBean</ejb-relation-name>
+            <foreign-key-mapping/>
+
+            <ejb-relationship-role>
+                <ejb-relationship-role-name>one address is used in many orders</ejb-relationship-role-name>
+                <key-fields>
+                    <key-field>
+                        <field-name>id</field-name>
+                        <column-name>address_fk</column-name>
+                    </key-field>
+                </key-fields>
+            </ejb-relationship-role>
+
+            <ejb-relationship-role>
+                <ejb-relationship-role-name>order is delivered to one address</ejb-relationship-role-name>
+                <key-fields/>
+            </ejb-relationship-role>
+        </ejb-relation>
+
+        <ejb-relation>
+            <ejb-relation-name>CreditCardBean - OrderBean</ejb-relation-name>
+            <foreign-key-mapping/>
+
+            <ejb-relationship-role>
+                <ejb-relationship-role-name>one creditcard is used in many orders</ejb-relationship-role-name>
+                <key-fields>
+                    <key-field>
+                        <field-name>id</field-name>
+                        <column-name>creditCard_fk</column-name>
+                    </key-field>
+                </key-fields>
+            </ejb-relationship-role>
+            
+            <ejb-relationship-role>
+                <ejb-relationship-role-name>order is payed with one creditcard</ejb-relationship-role-name>
+                <key-fields/>
+            </ejb-relationship-role>
+        </ejb-relation>
+    </relationships>
+
+</jbosscmp-jdbc>
+
+
+
+
+

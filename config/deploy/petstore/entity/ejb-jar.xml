@@ -1,0 +1,530 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE ejb-jar PUBLIC
+    '-//Sun Microsystems, Inc.//DTD Enterprise JavaBeans 2.0//EN'
+    'http://java.sun.com/dtd/ejb-jar_2_0.dtd'>
+
+<ejb-jar>
+    <display-name>Domain</display-name>
+    <enterprise-beans>
+        <entity>
+            <display-name>CustomerEB</display-name>
+            <ejb-name>CustomerBean</ejb-name>
+            <local-home>com.yaps.petstore.server.domain.customer.CustomerLocalHome</local-home>
+            <local>com.yaps.petstore.server.domain.customer.CustomerLocal</local>
+            <ejb-class>com.yaps.petstore.server.domain.customer.CustomerBean</ejb-class>
+            <persistence-type>Container</persistence-type>
+            <prim-key-class>java.lang.String</prim-key-class>
+            <reentrant>False</reentrant>
+            <cmp-version>2.x</cmp-version>
+            <abstract-schema-name>Customer</abstract-schema-name>
+            <cmp-field>
+                <field-name>id</field-name>
+            </cmp-field>
+            <cmp-field>
+                <field-name>password</field-name>
+            </cmp-field>
+            <cmp-field>
+                <field-name>firstname</field-name>
+            </cmp-field>
+            <cmp-field>
+                <field-name>lastname</field-name>
+            </cmp-field>
+            <cmp-field>
+                <field-name>email</field-name>
+            </cmp-field>
+            <cmp-field>
+                <field-name>telephone</field-name>
+            </cmp-field>
+            <primkey-field>id</primkey-field>
+
+            <query>
+                <query-method>
+                    <method-name>findAll</method-name>
+                    <method-params></method-params>
+                </query-method>
+                <ejb-ql><![CDATA[SELECT OBJECT(c) FROM Customer AS c]]></ejb-ql>
+            </query>
+
+        </entity>
+
+        <entity>
+            <display-name>ItemEB</display-name>
+            <ejb-name>ItemBean</ejb-name>
+            <local-home>com.yaps.petstore.server.domain.item.ItemLocalHome</local-home>
+            <local>com.yaps.petstore.server.domain.item.ItemLocal</local>
+            <ejb-class>com.yaps.petstore.server.domain.item.ItemBean</ejb-class>
+            <persistence-type>Container</persistence-type>
+            <prim-key-class>java.lang.String</prim-key-class>
+            <reentrant>False</reentrant>
+            <cmp-version>2.x</cmp-version>
+            <abstract-schema-name>Item</abstract-schema-name>
+            <cmp-field>
+                <field-name>id</field-name>
+            </cmp-field>
+            <cmp-field>
+                <field-name>name</field-name>
+            </cmp-field>
+            <cmp-field>
+                <field-name>unitCost</field-name>
+            </cmp-field>
+            <cmp-field>
+                <field-name>imagePath</field-name>
+            </cmp-field>
+            <primkey-field>id</primkey-field>
+
+            <query>
+                <query-method>
+                    <method-name>findAll</method-name>
+                    <method-params></method-params>
+                </query-method>
+                <ejb-ql><![CDATA[SELECT OBJECT(i) FROM Item AS i]]></ejb-ql>
+            </query>
+        </entity>
+
+        <entity>
+            <display-name>ProductEB</display-name>
+            <ejb-name>ProductBean</ejb-name>
+            <local-home>com.yaps.petstore.server.domain.product.ProductLocalHome</local-home>
+            <local>com.yaps.petstore.server.domain.product.ProductLocal</local>
+            <ejb-class>com.yaps.petstore.server.domain.product.ProductBean</ejb-class>
+            <persistence-type>Container</persistence-type>
+            <prim-key-class>java.lang.String</prim-key-class>
+            <reentrant>False</reentrant>
+            <cmp-version>2.x</cmp-version>
+            <abstract-schema-name>Product</abstract-schema-name>
+            <cmp-field>
+                <field-name>id</field-name>
+            </cmp-field>
+            <cmp-field>
+                <field-name>name</field-name>
+            </cmp-field>
+            <cmp-field>
+                <field-name>description</field-name>
+            </cmp-field>
+            <primkey-field>id</primkey-field>
+
+            <query>
+                <query-method>
+                    <method-name>findAll</method-name>
+                    <method-params></method-params>
+                </query-method>
+                <ejb-ql><![CDATA[SELECT OBJECT(p) FROM Product AS p]]></ejb-ql>
+            </query>
+        </entity>
+
+        <entity>
+            <display-name>CategoryEB</display-name>
+            <ejb-name>CategoryBean</ejb-name>
+            <local-home>com.yaps.petstore.server.domain.category.CategoryLocalHome</local-home>
+            <local>com.yaps.petstore.server.domain.category.CategoryLocal</local>
+            <ejb-class>com.yaps.petstore.server.domain.category.CategoryBean</ejb-class>
+            <persistence-type>Container</persistence-type>
+            <prim-key-class>java.lang.String</prim-key-class>
+            <reentrant>False</reentrant>
+            <cmp-version>2.x</cmp-version>
+            <abstract-schema-name>Category</abstract-schema-name>
+            <cmp-field>
+                <field-name>id</field-name>
+            </cmp-field>
+            <cmp-field>
+                <field-name>name</field-name>
+            </cmp-field>
+            <cmp-field>
+                <field-name>description</field-name>
+            </cmp-field>
+            <primkey-field>id</primkey-field>
+
+            <query>
+                <query-method>
+                    <method-name>findAll</method-name>
+                    <method-params></method-params>
+                </query-method>
+                <ejb-ql><![CDATA[SELECT OBJECT(c) FROM Category AS c]]></ejb-ql>
+            </query>
+
+        </entity>
+
+        <entity>
+            <display-name>OrderEB</display-name>
+            <ejb-name>OrderBean</ejb-name>
+            <local-home>com.yaps.petstore.server.domain.order.OrderLocalHome</local-home>
+            <local>com.yaps.petstore.server.domain.order.OrderLocal</local>
+            <ejb-class>com.yaps.petstore.server.domain.order.OrderBean</ejb-class>
+            <persistence-type>Container</persistence-type>
+            <prim-key-class>java.lang.String</prim-key-class>
+            <reentrant>False</reentrant>
+            <cmp-version>2.x</cmp-version>
+            <abstract-schema-name>Order</abstract-schema-name>
+            <cmp-field>
+                <field-name>id</field-name>
+            </cmp-field>
+            <cmp-field>
+                <field-name>orderDate</field-name>
+            </cmp-field>
+            <cmp-field>
+                <field-name>firstname</field-name>
+            </cmp-field>
+            <cmp-field>
+                <field-name>lastname</field-name>
+            </cmp-field>
+            <primkey-field>id</primkey-field>
+        </entity>
+
+        <entity>
+            <display-name>OrderLineEB</display-name>
+            <ejb-name>OrderLineBean</ejb-name>
+            <local-home>com.yaps.petstore.server.domain.orderline.OrderLineLocalHome</local-home>
+            <local>com.yaps.petstore.server.domain.orderline.OrderLineLocal</local>
+            <ejb-class>com.yaps.petstore.server.domain.orderline.OrderLineBean</ejb-class>
+            <persistence-type>Container</persistence-type>
+            <prim-key-class>java.lang.String</prim-key-class>
+            <reentrant>False</reentrant>
+            <cmp-version>2.x</cmp-version>
+            <abstract-schema-name>OrderLine</abstract-schema-name>
+            <cmp-field>
+                <field-name>id</field-name>
+            </cmp-field>
+            <cmp-field>
+                <field-name>quantity</field-name>
+            </cmp-field>
+            <cmp-field>
+                <field-name>unitCost</field-name>
+            </cmp-field>
+            <primkey-field>id</primkey-field>
+        </entity>
+
+        <entity>
+            <display-name>CreditCardEB</display-name>
+            <ejb-name>CreditCardBean</ejb-name>
+            <local-home>com.yaps.petstore.server.domain.creditcard.CreditCardLocalHome</local-home>
+            <local>com.yaps.petstore.server.domain.creditcard.CreditCardLocal</local>
+            <ejb-class>com.yaps.petstore.server.domain.creditcard.CreditCardBean</ejb-class>
+            <persistence-type>Container</persistence-type>
+            <prim-key-class>java.lang.String</prim-key-class>
+            <reentrant>False</reentrant>
+            <cmp-version>2.x</cmp-version>
+            <abstract-schema-name>CreditCard</abstract-schema-name>
+            <cmp-field>
+                <field-name>id</field-name>
+            </cmp-field>
+            <cmp-field>
+                <field-name>creditCardNumber</field-name>
+            </cmp-field>
+            <cmp-field>
+                <field-name>creditCardType</field-name>
+            </cmp-field>
+            <cmp-field>
+                <field-name>creditCardExpiryDate</field-name>
+            </cmp-field>
+            <primkey-field>id</primkey-field>
+        </entity>
+
+        <entity>
+            <display-name>AddressEB</display-name>
+            <ejb-name>AddressBean</ejb-name>
+            <local-home>com.yaps.petstore.server.domain.address.AddressLocalHome</local-home>
+            <local>com.yaps.petstore.server.domain.address.AddressLocal</local>
+            <ejb-class>com.yaps.petstore.server.domain.address.AddressBean</ejb-class>
+            <persistence-type>Container</persistence-type>
+            <prim-key-class>java.lang.String</prim-key-class>
+            <reentrant>False</reentrant>
+            <cmp-version>2.x</cmp-version>
+            <abstract-schema-name>Address</abstract-schema-name>
+            <cmp-field>
+                <field-name>id</field-name>
+            </cmp-field>
+            <cmp-field>
+                <field-name>street1</field-name>
+            </cmp-field>
+            <cmp-field>
+                <field-name>street2</field-name>
+            </cmp-field>
+            <cmp-field>
+                <field-name>city</field-name>
+            </cmp-field>
+            <cmp-field>
+                <field-name>state</field-name>
+            </cmp-field>
+            <cmp-field>
+                <field-name>zipcode</field-name>
+            </cmp-field>
+            <cmp-field>
+                <field-name>country</field-name>
+            </cmp-field>
+            <primkey-field>id</primkey-field>
+        </entity>
+    </enterprise-beans>
+
+    <relationships>
+        <ejb-relation>
+            <ejb-relation-name>CategoryBean - ProductBean</ejb-relation-name>
+
+            <ejb-relationship-role>
+                <ejb-relationship-role-name>category has many products</ejb-relationship-role-name>
+                <multiplicity>One</multiplicity>
+                <relationship-role-source>
+                    <ejb-name>CategoryBean</ejb-name>
+                </relationship-role-source>
+                <cmr-field>
+                    <cmr-field-name>products</cmr-field-name>
+                    <cmr-field-type>java.util.Collection</cmr-field-type>
+                </cmr-field>
+            </ejb-relationship-role>
+
+            <ejb-relationship-role>
+                <ejb-relationship-role-name>product is linked to one category</ejb-relationship-role-name>
+                <multiplicity>Many</multiplicity>
+                <cascade-delete/>
+                <relationship-role-source>
+                    <ejb-name>ProductBean</ejb-name>
+                </relationship-role-source>
+                <cmr-field>
+                    <cmr-field-name>category</cmr-field-name>
+                </cmr-field>
+            </ejb-relationship-role>
+        </ejb-relation>
+
+        <ejb-relation>
+            <ejb-relation-name>ProductBean - ItemBean</ejb-relation-name>
+
+            <ejb-relationship-role>
+                <ejb-relationship-role-name>product has many items</ejb-relationship-role-name>
+                <multiplicity>One</multiplicity>
+                <relationship-role-source>
+                    <ejb-name>ProductBean</ejb-name>
+                </relationship-role-source>
+                <cmr-field>
+                    <cmr-field-name>items</cmr-field-name>
+                    <cmr-field-type>java.util.Collection</cmr-field-type>
+                </cmr-field>
+            </ejb-relationship-role>
+
+            <ejb-relationship-role>
+                <ejb-relationship-role-name>item is linked to one product</ejb-relationship-role-name>
+                <multiplicity>Many</multiplicity>
+                <cascade-delete/>
+                <relationship-role-source>
+                    <ejb-name>ItemBean</ejb-name>
+                </relationship-role-source>
+                <cmr-field>
+                    <cmr-field-name>product</cmr-field-name>
+                </cmr-field>
+            </ejb-relationship-role>
+        </ejb-relation>
+
+        <ejb-relation>
+            <ejb-relation-name>OrderBean - OrderLineBean</ejb-relation-name>
+
+            <ejb-relationship-role>
+                <ejb-relationship-role-name>an order is made of many order lines</ejb-relationship-role-name>
+                <multiplicity>One</multiplicity>
+                <relationship-role-source>
+                    <ejb-name>OrderBean</ejb-name>
+                </relationship-role-source>
+                <cmr-field>
+                    <cmr-field-name>orderLines</cmr-field-name>
+                    <cmr-field-type>java.util.Collection</cmr-field-type>
+                </cmr-field>
+            </ejb-relationship-role>
+
+            <ejb-relationship-role>
+                <ejb-relationship-role-name>an order line refers one order</ejb-relationship-role-name>
+                <multiplicity>Many</multiplicity>
+                <relationship-role-source>
+                    <ejb-name>OrderLineBean</ejb-name>
+                </relationship-role-source>
+            </ejb-relationship-role>
+        </ejb-relation>
+
+        <ejb-relation>
+            <ejb-relation-name>CustomerBean - OrderBean</ejb-relation-name>
+
+            <ejb-relationship-role>
+                <ejb-relationship-role-name>customer can book many orders</ejb-relationship-role-name>
+                <multiplicity>One</multiplicity>
+                <relationship-role-source>
+                    <ejb-name>CustomerBean</ejb-name>
+                </relationship-role-source>
+            </ejb-relationship-role>
+
+            <ejb-relationship-role>
+                <ejb-relationship-role-name>an order is booked for one customer</ejb-relationship-role-name>
+                <multiplicity>Many</multiplicity>
+                <relationship-role-source>
+                    <ejb-name>OrderBean</ejb-name>
+                </relationship-role-source>
+                <cmr-field>
+                    <cmr-field-name>customer</cmr-field-name>
+                </cmr-field>
+            </ejb-relationship-role>
+        </ejb-relation>
+
+        <ejb-relation>
+            <ejb-relation-name>ItemBean - OrderLineBean</ejb-relation-name>
+
+            <ejb-relationship-role>
+                <ejb-relationship-role-name>item is used by many order lines</ejb-relationship-role-name>
+                <multiplicity>One</multiplicity>
+                <relationship-role-source>
+                    <ejb-name>ItemBean</ejb-name>
+                </relationship-role-source>
+            </ejb-relationship-role>
+
+            <ejb-relationship-role>
+                <ejb-relationship-role-name>order line refers only one item</ejb-relationship-role-name>
+                <multiplicity>Many</multiplicity>
+                <relationship-role-source>
+                    <ejb-name>OrderLineBean</ejb-name>
+                </relationship-role-source>
+                <cmr-field>
+                    <cmr-field-name>item</cmr-field-name>
+                </cmr-field>
+            </ejb-relationship-role>
+
+        </ejb-relation>
+
+        <ejb-relation>
+            <ejb-relation-name>CustomerBean - AddressBean</ejb-relation-name>
+            <ejb-relationship-role>
+                <ejb-relationship-role-name>customer-has_an-address</ejb-relationship-role-name>
+                <multiplicity>One</multiplicity>
+                <relationship-role-source>
+                    <ejb-name>CustomerBean</ejb-name>
+                </relationship-role-source>
+                <cmr-field>
+                    <cmr-field-name>address</cmr-field-name>
+                </cmr-field>
+            </ejb-relationship-role>
+            <ejb-relationship-role>
+                <ejb-relationship-role-name>address-is_refered_by-customer</ejb-relationship-role-name>
+                <multiplicity>One</multiplicity>
+                <relationship-role-source>
+                    <ejb-name>AddressBean</ejb-name>
+                </relationship-role-source>
+            </ejb-relationship-role>
+        </ejb-relation>
+
+        <ejb-relation>
+            <ejb-relation-name>CustomerBean - CreditCardBean</ejb-relation-name>
+            <ejb-relationship-role>
+                <ejb-relationship-role-name>customer-has_a-creditCard</ejb-relationship-role-name>
+                <multiplicity>One</multiplicity>
+                <relationship-role-source>
+                    <ejb-name>CustomerBean</ejb-name>
+                </relationship-role-source>
+                <cmr-field>
+                    <cmr-field-name>creditCard</cmr-field-name>
+                </cmr-field>
+            </ejb-relationship-role>
+            <ejb-relationship-role>
+                <ejb-relationship-role-name>creditCard-belongs_to-customer</ejb-relationship-role-name>
+                <multiplicity>One</multiplicity>
+                <relationship-role-source>
+                    <ejb-name>CreditCardBean</ejb-name>
+                </relationship-role-source>
+            </ejb-relationship-role>
+        </ejb-relation>
+
+        <ejb-relation>
+            <ejb-relation-name>AddressBean - OrderBean</ejb-relation-name>
+
+            <ejb-relationship-role>
+                <ejb-relationship-role-name>one address is used in many orders</ejb-relationship-role-name>
+                <multiplicity>One</multiplicity>
+                <relationship-role-source>
+                    <ejb-name>AddressBean</ejb-name>
+                </relationship-role-source>
+            </ejb-relationship-role>
+
+            <ejb-relationship-role>
+                <ejb-relationship-role-name>order is delivered to one address</ejb-relationship-role-name>
+                <multiplicity>Many</multiplicity>
+                <relationship-role-source>
+                    <ejb-name>OrderBean</ejb-name>
+                </relationship-role-source>
+                <cmr-field>
+                    <cmr-field-name>address</cmr-field-name>
+                </cmr-field>
+            </ejb-relationship-role>
+        </ejb-relation>
+
+        <ejb-relation>
+            <ejb-relation-name>CreditCardBean - OrderBean</ejb-relation-name>
+
+            <ejb-relationship-role>
+                <ejb-relationship-role-name>one creditcard is used in many orders</ejb-relationship-role-name>
+                <multiplicity>One</multiplicity>
+                <relationship-role-source>
+                    <ejb-name>CreditCardBean</ejb-name>
+                </relationship-role-source>
+            </ejb-relationship-role>
+
+            <ejb-relationship-role>
+                <ejb-relationship-role-name>order is payed with one creditcard</ejb-relationship-role-name>
+                <multiplicity>Many</multiplicity>
+                <relationship-role-source>
+                    <ejb-name>OrderBean</ejb-name>
+                </relationship-role-source>
+                <cmr-field>
+                    <cmr-field-name>creditCard</cmr-field-name>
+                </cmr-field>
+            </ejb-relationship-role>
+        </ejb-relation>
+    </relationships>
+
+    <assembly-descriptor>
+        <container-transaction>
+            <description>Transaction attributes for 'CustomerBean' methods</description>
+            <method>
+                <ejb-name>CustomerBean</ejb-name>
+                <method-name>*</method-name>
+            </method>
+            <trans-attribute>Required</trans-attribute>
+        </container-transaction>
+
+        <container-transaction>
+            <description>Transaction attributes for 'ItemBean' methods</description>
+            <method>
+                <ejb-name>ItemBean</ejb-name>
+                <method-name>*</method-name>
+            </method>
+            <trans-attribute>Required</trans-attribute>
+        </container-transaction>
+
+        <container-transaction>
+            <description>Transaction attributes for 'ProductBean' methods</description>
+            <method>
+                <ejb-name>ProductBean</ejb-name>
+                <method-name>*</method-name>
+            </method>
+            <trans-attribute>Required</trans-attribute>
+        </container-transaction>
+
+        <container-transaction>
+            <description>Transaction attributes for 'CategoryBean' methods</description>
+            <method>
+                <ejb-name>CategoryBean</ejb-name>
+                <method-name>*</method-name>
+            </method>
+            <trans-attribute>Required</trans-attribute>
+        </container-transaction>
+
+        <container-transaction>
+            <description>Transaction attributes for 'OrderBean' methods</description>
+            <method>
+                <ejb-name>OrderBean</ejb-name>
+                <method-name>*</method-name>
+            </method>
+            <trans-attribute>Required</trans-attribute>
+        </container-transaction>
+
+        <container-transaction>
+            <description>Transaction attributes for 'OrderLineBean' methods</description>
+            <method>
+                <ejb-name>OrderLineBean</ejb-name>
+                <method-name>*</method-name>
+            </method>
+            <trans-attribute>Required</trans-attribute>
+        </container-transaction>
+    </assembly-descriptor>
+</ejb-jar>
